@@ -7,9 +7,9 @@ const savedSlice = createSlice({
   initialState: initialSaved,
   reducers: {
     toggleSaved: (state, action: PayloadAction<any>) => {
-      const saved = state.find(el => el.id === action.payload.id);
+      const saved = state.find(el => el?.id === action.payload.id);
       const updated = saved
-        ? state.filter(el => el.id !== action.payload.id)
+        ? state.filter(el => el?.id !== action.payload.id)
         : [...state, action.payload];
       return updated;
     },

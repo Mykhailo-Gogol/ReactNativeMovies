@@ -24,7 +24,7 @@ export default function MainScreen() {
               tabBarLabel: name,
               tabBarActiveTintColor: 'black',
               tabBarActiveBackgroundColor: '#eee',
-              tabBarBadge: bagde && saved?.length ? saved.length : undefined,
+              tabBarBadge: bagde && saved?.length ? saved.length : 1,
               tabBarBadgeStyle: styles.badge,
             }}
           />

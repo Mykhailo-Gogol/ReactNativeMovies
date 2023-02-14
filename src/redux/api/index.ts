@@ -8,7 +8,7 @@ export const moviesApi = createApi({
     getAllMovies: builder.query<any, string>({
       query: () => `/trending/all/day?api_key=${Constants.API_KEY}`,
     }),
-    getMovieById: builder.query<any, string>({
+    getMovieById: builder.query<any, number>({
       query: id => `movie/${id}?api_key=${Constants.API_KEY}`,
     }),
   }),
