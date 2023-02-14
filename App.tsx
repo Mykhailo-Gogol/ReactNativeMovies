@@ -1,4 +1,4 @@
-import React, {StrictMode} from 'react';
+import React from 'react';
 import {StyleSheet, SafeAreaView} from 'react-native';
 import {Provider} from 'react-redux';
 import {PersistGate} from 'redux-persist/integration/react';
@@ -9,17 +9,15 @@ import MainScreen from './src/screens/MainScreen';
 
 function App(): JSX.Element {
   return (
-    <StrictMode>
-      <Provider store={store}>
-        <PersistGate loading={null} persistor={persistor}>
-          <ApiProvider api={moviesApi}>
-            <SafeAreaView style={styles.app}>
-              <MainScreen />
-            </SafeAreaView>
-          </ApiProvider>
-        </PersistGate>
-      </Provider>
-    </StrictMode>
+    <Provider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
+        <ApiProvider api={moviesApi}>
+          <SafeAreaView style={styles.app}>
+            <MainScreen />
+          </SafeAreaView>
+        </ApiProvider>
+      </PersistGate>
+    </Provider>
   );
 }
 

@@ -13,12 +13,25 @@ const persistConfig = {
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
+import * as flipper from 'redux-flipper';
+
 export const store = configureStore({
   reducer: persistedReducer,
-  middleware: getDefaultMiddleware =>
-    getDefaultMiddleware({
-      serializableCheck: false,
-    }).concat(moviesApi.middleware),
+  middleware: getDefaultMiddleware => {
+    if (__DEV__) {
+      const createDebugger = flipper.default;
+
+      return getDefaultMiddleware({
+        serializableCheck: false,
+      })
+        .concat(moviesApi.middleware)
+        .concat(createDebugger());
+    } else {
+      return getDefaultMiddleware({
+        serializableCheck: false,
+      }).concat(moviesApi.middleware);
+    }
+  },
 });
 
 export type RootState = ReturnType<typeof store.getState>;

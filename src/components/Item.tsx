@@ -1,15 +1,21 @@
 import React from 'react';
 import {StyleSheet, View, Text, Image, TouchableOpacity} from 'react-native';
+import {useDispatch} from 'react-redux';
 import {savedActions} from '../redux/slices/saved';
 
 export default function Item({item}: any) {
+  const dispatch = useDispatch();
   const uri = `https://image.tmdb.org/t/p/original${item.backdrop_path}`;
+
+  const handlePress = () => {
+    dispatch(savedActions.toggleSaved(item));
+  };
 
   return (
     <View style={styles.item}>
       <View style={styles.heading}>
         <Text>{item.name || item.title}</Text>
-        <TouchableOpacity onPress={() => savedActions.toggleSaved(item)}>
+        <TouchableOpacity onPress={handlePress}>
           <Text>Like</Text>
         </TouchableOpacity>
       </View>
