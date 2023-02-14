@@ -5,7 +5,7 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {useSelector} from 'react-redux';
 import {RootState} from '../redux/store';
 
-import {Routes} from '../routes/home';
+import {Routes} from '../routes/main';
 
 const Tab = createBottomTabNavigator();
 
@@ -24,7 +24,7 @@ export default function MainScreen() {
               tabBarLabel: name,
               tabBarActiveTintColor: 'black',
               tabBarActiveBackgroundColor: '#eee',
-              tabBarBadge: bagde && saved?.length ? saved.length : 1,
+              tabBarBadge: bagde && saved?.length ? saved.length : undefined,
               tabBarBadgeStyle: styles.badge,
             }}
           />

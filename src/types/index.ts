@@ -1,6 +1,6 @@
 import {FC} from 'react';
 
-type Routes = 'Movies' | 'Saved';
+type Routes = 'Movies' | 'Saved' | 'Details';
 
 export interface TRoute {
   component: FC;
