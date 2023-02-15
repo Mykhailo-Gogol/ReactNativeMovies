@@ -20,7 +20,7 @@ export default function Movies() {
   return (
     <View style={styles.container}>
       {isLoading ? (
-        <Text>Loading</Text>
+        <Text style={styles.text}>Loading</Text>
       ) : (
         <List items={movies} handleLoadMore={handleLoadMore} />
       )}
@@ -31,5 +31,8 @@ export default function Movies() {
 const styles = StyleSheet.create({
   container: {
     paddingHorizontal: 16,
+  },
+  text: {
+    paddingVertical: 16,
   },
 });

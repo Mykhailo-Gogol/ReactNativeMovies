@@ -13,7 +13,7 @@ export default function Saved() {
       {saved?.length ? (
         <List items={saved} />
       ) : (
-        <Text>Saved List Is Empty</Text>
+        <Text style={styles.text}>Saved List Is Empty</Text>
       )}
     </View>
   );
@@ -22,5 +22,8 @@ export default function Saved() {
 const styles = StyleSheet.create({
   container: {
     paddingHorizontal: 16,
+  },
+  text: {
+    paddingVertical: 16,
   },
 });

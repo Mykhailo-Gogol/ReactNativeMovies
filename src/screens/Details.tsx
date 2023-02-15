@@ -7,7 +7,7 @@ export default function Details({route: {params}}: any) {
   const {data, isLoading} = useGetMovieByIdQuery(params.id);
 
   return (
-    <ScrollView style={styles.item}>
+    <ScrollView style={styles.container}>
       {isLoading ? (
         <Text style={styles.text}>Loading</Text>
       ) : (
@@ -18,10 +18,10 @@ export default function Details({route: {params}}: any) {
 }
 
 const styles = StyleSheet.create({
-  item: {
+  container: {
     paddingHorizontal: 16,
   },
   text: {
-    marginVertical: 16,
+    paddingVertical: 16,
   },
 });

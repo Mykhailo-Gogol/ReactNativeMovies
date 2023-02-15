@@ -1,18 +1,14 @@
 import React from 'react';
-import {
-  StyleSheet,
-  View,
-  TouchableOpacity,
-  Text,
-  Image,
-  Button,
-} from 'react-native';
+import {StyleSheet, View, TouchableOpacity, Text, Image} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {useSelector} from 'react-redux';
 import {useDispatch} from 'react-redux';
 import {RootState} from '../redux/store';
 import {savedActions} from '../redux/slices/saved';
 import {TMovie} from '../types';
+import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
+import {faBookmark} from '@fortawesome/free-solid-svg-icons';
+import {faBookmark as farBookmark} from '@fortawesome/free-regular-svg-icons';
 
 type Props = {
   item: TMovie | undefined;
@@ -41,7 +37,10 @@ export default function Item({item, overview = false}: Props) {
     <TouchableOpacity style={styles.item} onPress={handleNavigate}>
       <View style={styles.header}>
         <Text style={styles.title}>{item?.name || item?.title}</Text>
-        <Button title={isIn ? 'Saved' : 'Watch later'} onPress={handlePress} />
+        {/* add icon */}
+        <TouchableOpacity onPress={handlePress}>
+          <FontAwesomeIcon icon={isIn ? faBookmark : farBookmark} size={24} />
+        </TouchableOpacity>
       </View>
       <Image source={{uri}} style={styles.image} />
       {overview && <Text style={styles.overview}>{item?.overview}</Text>}
@@ -60,7 +59,7 @@ const styles = StyleSheet.create({
     paddingVertical: 16,
   },
   title: {
-    width: '70%',
+    width: '80%',
     marginRight: 16,
     fontSize: 16,
     fontWeight: '500',
