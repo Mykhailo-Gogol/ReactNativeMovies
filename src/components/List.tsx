@@ -1,8 +1,13 @@
 import React from 'react';
 import {FlatList} from 'react-native';
+import {TMovie} from '../types';
 import Item from './Item';
 
-export default function List({items}: any) {
+type Props = {
+  items: TMovie[] | never[];
+};
+
+export default function List({items}: Props) {
   return (
     <FlatList
       data={items}

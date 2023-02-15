@@ -1,9 +1,16 @@
 import {FC} from 'react';
 import {IconProp} from '@fortawesome/fontawesome-svg-core';
 
+export type TRootStackParamList = {
+  Main: undefined;
+  Movies: undefined;
+  Saved: undefined;
+  Details: undefined;
+};
+
 export interface TRoute {
   component: FC;
-  name: string;
+  name: keyof TRootStackParamList;
   title?: string;
   icon?: IconProp;
   bagde?: boolean;
@@ -11,8 +18,8 @@ export interface TRoute {
 
 export interface TMovie {
   id: number;
-  albumId: number;
-  title: string;
-  url: string;
-  thumbnailUrl: string;
+  name?: string;
+  title?: string;
+  backdrop_path: string | null;
+  overview: string;
 }

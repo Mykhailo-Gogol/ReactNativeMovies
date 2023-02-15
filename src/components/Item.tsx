@@ -12,32 +12,40 @@ import {useSelector} from 'react-redux';
 import {useDispatch} from 'react-redux';
 import {RootState} from '../redux/store';
 import {savedActions} from '../redux/slices/saved';
+import {TMovie} from '../types';
 
-export default function Item({item, overview = false}: any) {
+type Props = {
+  item: TMovie | undefined;
+  overview?: boolean;
+};
+
+export default function Item({item, overview = false}: Props) {
   const dispatch = useDispatch();
   const navigation = useNavigation();
-  const saved = useSelector((state: RootState) => state.saved);
+  const saved: TMovie[] = useSelector((state: RootState) => state.saved);
 
-  const isIn = saved.find(el => el?.id === item.id);
-  const uri = `https://image.tmdb.org/t/p/original${item.backdrop_path}`;
+  const isIn = saved.find((el: TMovie) => el?.id === item?.id);
+  const uri = `https://image.tmdb.org/t/p/original${item?.backdrop_path}`;
 
   const handlePress = () => {
-    dispatch(savedActions.toggleSaved(item));
+    if (item) {
+      dispatch(savedActions.toggleSaved(item));
+    }
   };
 
   const handleNavigate = () => {
     // @ts-ignore
-    navigation.navigate('Details', {id: item.id});
+    navigation.navigate('Details', {id: item?.id});
   };
 
   return (
     <TouchableOpacity style={styles.item} onPress={handleNavigate}>
       <View style={styles.heading}>
-        <Text style={styles.title}>{item.name || item.title}</Text>
+        <Text style={styles.title}>{item?.name || item?.title}</Text>
         <Button title={isIn ? 'Saved' : 'Watch later'} onPress={handlePress} />
       </View>
       <Image source={{uri}} style={styles.image} />
-      {overview && <Text style={styles.overview}>{item.overview}</Text>}
+      {overview && <Text style={styles.overview}>{item?.overview}</Text>}
     </TouchableOpacity>
   );
 }
