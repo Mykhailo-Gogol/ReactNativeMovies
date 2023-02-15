@@ -5,7 +5,7 @@ export type TRootStackParamList = {
   Main: undefined;
   Movies: undefined;
   Saved: undefined;
-  Details: undefined;
+  Details: {id: number} | undefined;
 };
 
 export interface TRoute {

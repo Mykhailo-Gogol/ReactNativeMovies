@@ -1,6 +1,6 @@
-import Movies from '../../pages/Movies';
-import Saved from '../../pages/Saved';
-import Details from '../../pages/Details';
+import Movies from '../../screens/Movies';
+import Saved from '../../screens/Saved';
+import Details from '../../screens/Details';
 import MainNavigatior from '../MainNavigator';
 import {TRoute} from '../../types';
 

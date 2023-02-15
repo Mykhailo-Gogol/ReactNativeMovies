@@ -10,6 +10,14 @@ const Tab = createBottomTabNavigator();
 
 export default function MainNavigatior() {
   const saved = useSelector((state: RootState) => state.saved);
+
+  const barIconMovies = () =>
+    Routes.movies.icon && (
+      <FontAwesomeIcon icon={Routes.movies.icon} size={24} />
+    );
+
+  const barIconSaved = () =>
+    Routes.saved.icon && <FontAwesomeIcon icon={Routes.saved.icon} size={24} />;
   return (
     <Tab.Navigator
       initialRouteName={Routes.movies.name}
@@ -28,11 +36,7 @@ export default function MainNavigatior() {
           tabBarLabel: Routes.movies.name,
           tabBarBadge:
             Routes.movies.bagde && saved?.length ? saved.length : undefined,
-          // eslint-disable-next-line react/no-unstable-nested-components
-          tabBarIcon: () =>
-            Routes.movies.icon && (
-              <FontAwesomeIcon icon={Routes.movies.icon} size={24} />
-            ),
+          tabBarIcon: barIconMovies,
         }}
       />
       <Tab.Screen
@@ -44,11 +48,7 @@ export default function MainNavigatior() {
           tabBarLabel: Routes.saved.name,
           tabBarBadge:
             Routes.saved.bagde && saved?.length ? saved.length : undefined,
-          // eslint-disable-next-line react/no-unstable-nested-components
-          tabBarIcon: () =>
-            Routes.saved.icon && (
-              <FontAwesomeIcon icon={Routes.saved.icon} size={24} />
-            ),
+          tabBarIcon: barIconSaved,
         }}
       />
     </Tab.Navigator>

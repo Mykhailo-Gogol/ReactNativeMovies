@@ -34,13 +34,12 @@ export default function Item({item, overview = false}: Props) {
   };
 
   const handleNavigate = () => {
-    // @ts-ignore
-    navigation.navigate('Details', {id: item?.id});
+    navigation.navigate('Details' as never, {id: item?.id} as never);
   };
 
   return (
     <TouchableOpacity style={styles.item} onPress={handleNavigate}>
-      <View style={styles.heading}>
+      <View style={styles.header}>
         <Text style={styles.title}>{item?.name || item?.title}</Text>
         <Button title={isIn ? 'Saved' : 'Watch later'} onPress={handlePress} />
       </View>
@@ -54,13 +53,16 @@ const styles = StyleSheet.create({
   item: {
     marginBottom: 16,
   },
-  heading: {
+  header: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingVertical: 8,
+    paddingVertical: 16,
   },
   title: {
+    width: '70%',
+    marginRight: 16,
+    fontSize: 16,
     fontWeight: '500',
   },
   image: {height: 200},
