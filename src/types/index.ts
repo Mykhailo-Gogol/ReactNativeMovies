@@ -22,4 +22,8 @@ export interface TMovie {
   title?: string;
   backdrop_path: string | null;
   overview: string;
+  genres: {id: number; name: string}[];
+  budget: string;
+  vote_avarage: number;
+  production_companies: {id: number; name: string; logo_path: string | null}[];
 }

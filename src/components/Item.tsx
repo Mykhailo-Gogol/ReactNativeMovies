@@ -22,6 +22,8 @@ export default function Item({item, overview = false}: Props) {
 
   const isIn = saved.find((el: TMovie) => el?.id === item?.id);
   const uri = `https://image.tmdb.org/t/p/original${item?.backdrop_path}`;
+  const getLogo = (path: string | null) =>
+    `https://image.tmdb.org/t/p/w200${path}`;
 
   const handlePress = () => {
     if (item) {
@@ -38,7 +40,6 @@ export default function Item({item, overview = false}: Props) {
       <TouchableOpacity onPress={handleNavigate}>
         <View style={styles.header}>
           <Text style={styles.title}>{item?.name || item?.title}</Text>
-          {/* add icon */}
           <TouchableOpacity onPress={handlePress}>
             <FontAwesomeIcon icon={isIn ? faBookmark : farBookmark} size={24} />
           </TouchableOpacity>
@@ -46,15 +47,37 @@ export default function Item({item, overview = false}: Props) {
         <Image source={{uri}} style={styles.image} />
       </TouchableOpacity>
 
-      {overview && <Text style={styles.overview}>{item?.overview}</Text>}
+      {overview && (
+        <View style={styles.overview}>
+          <Text style={styles.withMarginBottom}>Budget: {item?.budget}</Text>
+          {item?.vote_avarage && <Text>Rate: {item?.vote_avarage}</Text>}
+          <View style={styles.list}>
+            <Text style={styles.withMarginRight}>Genres:</Text>
+            {item?.genres.map(({id, name}) => (
+              <Text style={styles.withMarginRight} key={id}>
+                {name}
+              </Text>
+            ))}
+          </View>
+          <View style={styles.list}>
+            <Text style={styles.withMarginRight}>Production:</Text>
+            {item?.production_companies.map(({id, logo_path}) => (
+              <Image
+                style={styles.companyLogo}
+                key={id}
+                source={{uri: getLogo(logo_path)}}
+              />
+            ))}
+          </View>
+          <Text>{item?.overview}</Text>
+        </View>
+      )}
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    borderBottomWidth: 1,
-    borderBottomColor: '#ddd',
     position: 'relative',
     paddingBottom: 16,
     marginBottom: 16,
@@ -81,7 +104,24 @@ const styles = StyleSheet.create({
   image: {
     height: 200,
   },
+  list: {
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+  },
+  companyLogo: {
+    width: 50,
+    height: 50,
+    marginRight: 8,
+    resizeMode: 'contain',
+  },
   overview: {
     marginTop: 16,
+  },
+  withMarginRight: {
+    marginRight: 4,
+  },
+  withMarginBottom: {
+    marginBottom: 16,
   },
 });
