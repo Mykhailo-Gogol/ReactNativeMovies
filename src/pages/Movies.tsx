@@ -9,6 +9,7 @@ export default function Movies() {
   return (
     <View style={styles.container}>
       {isLoading ? <Text>Loading</Text> : <List items={data.results} />}
+      {/* <Text>{JSON.stringify(data, null, 2)}</Text> */}
     </View>
   );
 }

@@ -1,13 +1,12 @@
 import {FC} from 'react';
 import {IconProp} from '@fortawesome/fontawesome-svg-core';
 
-type Routes = 'Movies' | 'Saved' | 'Details';
-
 export interface TRoute {
   component: FC;
-  name: Routes;
-  bagde?: boolean;
+  name: string;
+  title?: string;
   icon?: IconProp;
+  bagde?: boolean;
 }
 
 export interface TMovie {
