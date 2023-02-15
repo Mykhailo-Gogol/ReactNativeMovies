@@ -39,6 +39,11 @@ export default function List({items, handleLoadMore}: Props) {
     }
   };
 
+  const scrollTopButtonStyle = ({pressed}: {pressed: boolean}) => ({
+    ...styles.scrollTop,
+    backgroundColor: pressed ? '#3cf' : '#ddd',
+  });
+
   return (
     <View style={styles.container}>
       <FlatList
@@ -52,14 +57,11 @@ export default function List({items, handleLoadMore}: Props) {
         onEndReached={handleReached}
         onEndReachedThreshold={0}
         onScroll={handleScroll}
-        scrollEventThrottle={50}
+        scrollEventThrottle={25}
       />
       {showScrollTop && (
         <Pressable
-          style={({pressed}) => ({
-            ...styles.scrollTop,
-            backgroundColor: pressed ? '#3cf' : '#ddd',
-          })}
+          style={scrollTopButtonStyle}
           onPressIn={() =>
             flatList.current?.scrollToIndex({index: 0, animated: true})
           }>

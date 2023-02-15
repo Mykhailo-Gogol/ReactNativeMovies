@@ -34,22 +34,29 @@ export default function Item({item, overview = false}: Props) {
   };
 
   return (
-    <TouchableOpacity style={styles.item} onPress={handleNavigate}>
-      <View style={styles.header}>
-        <Text style={styles.title}>{item?.name || item?.title}</Text>
-        {/* add icon */}
-        <TouchableOpacity onPress={handlePress}>
-          <FontAwesomeIcon icon={isIn ? faBookmark : farBookmark} size={24} />
-        </TouchableOpacity>
-      </View>
-      <Image source={{uri}} style={styles.image} />
+    <View style={styles.container}>
+      <TouchableOpacity onPress={handleNavigate}>
+        <View style={styles.header}>
+          <Text style={styles.title}>{item?.name || item?.title}</Text>
+          {/* add icon */}
+          <TouchableOpacity onPress={handlePress}>
+            <FontAwesomeIcon icon={isIn ? faBookmark : farBookmark} size={24} />
+          </TouchableOpacity>
+        </View>
+        <Image source={{uri}} style={styles.image} />
+      </TouchableOpacity>
+
       {overview && <Text style={styles.overview}>{item?.overview}</Text>}
-    </TouchableOpacity>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
-  item: {
+  container: {
+    borderBottomWidth: 1,
+    borderBottomColor: '#ddd',
+    position: 'relative',
+    paddingBottom: 16,
     marginBottom: 16,
   },
   header: {
@@ -57,6 +64,13 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     paddingVertical: 16,
+    paddingHorizontal: 8,
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    width: '100%',
+    zIndex: 10,
+    backgroundColor: 'rgba(255, 255, 255,  0.8)',
   },
   title: {
     width: '80%',
@@ -64,7 +78,9 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: '500',
   },
-  image: {height: 200},
+  image: {
+    height: 200,
+  },
   overview: {
     marginTop: 16,
   },

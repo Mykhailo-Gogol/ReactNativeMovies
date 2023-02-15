@@ -30,9 +30,9 @@ export default function Movies() {
 
 const styles = StyleSheet.create({
   container: {
-    paddingHorizontal: 16,
+    padding: 16,
   },
   text: {
-    paddingVertical: 16,
+    paddingBottom: 16,
   },
 });
