@@ -1,10 +1,11 @@
-import React, {useRef} from 'react';
+import React, {useRef, useState} from 'react';
 import {
   StyleSheet,
   FlatList,
   ActivityIndicator,
   View,
   Pressable,
+  NativeScrollEvent,
 } from 'react-native';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {TMovie} from '../types';
@@ -16,6 +17,7 @@ type Props = {
 };
 
 export default function List({items, handleLoadMore}: Props) {
+  const [showScrollTop, setShowScrollTop] = useState(false);
   const flatList = useRef<FlatList>(null);
 
   const footerComponent = () =>
@@ -29,11 +31,18 @@ export default function List({items, handleLoadMore}: Props) {
     }
   };
 
+  const handleScroll = ({nativeEvent}: {nativeEvent: NativeScrollEvent}) => {
+    if (nativeEvent.contentOffset.y > 1000) {
+      setShowScrollTop(true);
+    } else {
+      setShowScrollTop(false);
+    }
+  };
+
   return (
     <View style={styles.container}>
       <FlatList
-        // eslint-disable-next-line react-native/no-inline-styles
-        style={{position: 'relative'}}
+        style={styles.list}
         data={items}
         ref={flatList}
         renderItem={({item}) => <Item item={item} />}
@@ -42,17 +51,21 @@ export default function List({items, handleLoadMore}: Props) {
         ListFooterComponent={footerComponent}
         onEndReached={handleReached}
         onEndReachedThreshold={0}
+        onScroll={handleScroll}
+        scrollEventThrottle={50}
       />
-      <Pressable
-        style={({pressed}) => ({
-          ...styles.scrollTop,
-          backgroundColor: pressed ? '#3cf' : '#ddd',
-        })}
-        onPressIn={() =>
-          flatList.current?.scrollToIndex({index: 0, animated: true})
-        }>
-        <FontAwesomeIcon icon="arrow-up" />
-      </Pressable>
+      {showScrollTop && (
+        <Pressable
+          style={({pressed}) => ({
+            ...styles.scrollTop,
+            backgroundColor: pressed ? '#3cf' : '#ddd',
+          })}
+          onPressIn={() =>
+            flatList.current?.scrollToIndex({index: 0, animated: true})
+          }>
+          <FontAwesomeIcon icon="arrow-up" />
+        </Pressable>
+      )}
     </View>
   );
 }
