@@ -10,7 +10,6 @@ export default function Saved() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Saved movies</Text>
       {saved?.length ? (
         <List items={saved} />
       ) : (
@@ -23,11 +22,5 @@ export default function Saved() {
 const styles = StyleSheet.create({
   container: {
     paddingHorizontal: 16,
-  },
-  title: {
-    fontSize: 20,
-    textAlign: 'center',
-    fontWeight: '500',
-    paddingVertical: 16,
   },
 });

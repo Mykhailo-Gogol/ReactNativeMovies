@@ -2,10 +2,11 @@ import React from 'react';
 import {StyleSheet} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {useSelector} from 'react-redux';
 import {RootState} from '../redux/store';
 
-import {Routes} from '../routes/main';
+import {MainRoutes} from '../routes/main';
 
 const Tab = createBottomTabNavigator();
 
@@ -14,7 +15,7 @@ export default function MainScreen() {
   return (
     <NavigationContainer>
       <Tab.Navigator initialRouteName="Movies">
-        {Routes.map(({component, name, bagde}) => (
+        {MainRoutes.map(({component, name, bagde, icon}) => (
           <Tab.Screen
             key={name}
             navigationKey={name}
@@ -26,6 +27,9 @@ export default function MainScreen() {
               tabBarActiveBackgroundColor: '#eee',
               tabBarBadge: bagde && saved?.length ? saved.length : undefined,
               tabBarBadgeStyle: styles.badge,
+              // eslint-disable-next-line react/no-unstable-nested-components
+              tabBarIcon: () =>
+                icon && <FontAwesomeIcon icon={icon} size={24} />,
             }}
           />
         ))}

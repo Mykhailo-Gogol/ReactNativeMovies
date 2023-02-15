@@ -13,7 +13,7 @@ import {useDispatch} from 'react-redux';
 import {RootState} from '../redux/store';
 import {savedActions} from '../redux/slices/saved';
 
-export default function Item({item}: any) {
+export default function Item({item, overview = false}: any) {
   const dispatch = useDispatch();
   const navigation = useNavigation();
   const saved = useSelector((state: RootState) => state.saved);
@@ -33,11 +33,11 @@ export default function Item({item}: any) {
   return (
     <TouchableOpacity style={styles.item} onPress={handleNavigate}>
       <View style={styles.heading}>
-        <Text>{item.name || item.title}</Text>
-        <Text>{item.id}</Text>
+        <Text style={styles.title}>{item.name || item.title}</Text>
         <Button title={isIn ? 'Saved' : 'Watch later'} onPress={handlePress} />
       </View>
       <Image source={{uri}} style={styles.image} />
+      {overview && <Text style={styles.overview}>{item.overview}</Text>}
     </TouchableOpacity>
   );
 }
@@ -46,11 +46,17 @@ const styles = StyleSheet.create({
   item: {
     marginBottom: 16,
   },
-  image: {width: '100%', height: 300},
   heading: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
     paddingVertical: 8,
+  },
+  title: {
+    fontWeight: '500',
+  },
+  image: {height: 200},
+  overview: {
+    marginTop: 16,
   },
 });

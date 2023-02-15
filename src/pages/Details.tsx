@@ -11,7 +11,7 @@ export default function Details({route: {params}}: any) {
       {isLoading ? (
         <Text style={styles.text}>Loading</Text>
       ) : (
-        <Item item={data} />
+        <Item item={data} overview={true} />
       )}
     </ScrollView>
   );
