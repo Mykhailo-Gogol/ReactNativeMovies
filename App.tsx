@@ -6,12 +6,17 @@ import {PersistGate} from 'redux-persist/integration/react';
 import {store, persistor} from './src/redux/store';
 
 import {library} from '@fortawesome/fontawesome-svg-core';
-import {faHome, faBookmark, faArrowUp} from '@fortawesome/free-solid-svg-icons';
+import {
+  faHome,
+  faBookmark,
+  faArrowUp,
+  faVideo,
+} from '@fortawesome/free-solid-svg-icons';
 
 import {NavigationContainer} from '@react-navigation/native';
 import RootNavigator from './src/navigation/RootNavigator';
 
-library.add(faHome, faBookmark, faArrowUp);
+library.add(faHome, faBookmark, faArrowUp, faVideo);
 
 function App(): JSX.Element {
   return (

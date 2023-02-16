@@ -5,10 +5,12 @@ import {useSelector} from 'react-redux';
 import {useDispatch} from 'react-redux';
 import {RootState} from '../redux/store';
 import {savedActions} from '../redux/slices/saved';
+import {useGetMovieVideosByIdQuery} from '../redux/api';
 import {TMovie} from '../types';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {faBookmark} from '@fortawesome/free-solid-svg-icons';
 import {faBookmark as farBookmark} from '@fortawesome/free-regular-svg-icons';
+import YoutubePlayer from 'react-native-youtube-iframe';
 
 type Props = {
   item: TMovie | undefined;
@@ -19,6 +21,8 @@ export default function Item({item, overview = false}: Props) {
   const dispatch = useDispatch();
   const navigation = useNavigation();
   const saved: TMovie[] = useSelector((state: RootState) => state.saved);
+
+  const {data} = useGetMovieVideosByIdQuery(item?.id || 0);
 
   const isIn = saved.find((el: TMovie) => el?.id === item?.id);
   const uri = `https://image.tmdb.org/t/p/original${item?.backdrop_path}`;
@@ -44,12 +48,14 @@ export default function Item({item, overview = false}: Props) {
             <FontAwesomeIcon icon={isIn ? faBookmark : farBookmark} size={24} />
           </TouchableOpacity>
         </View>
-        <Image source={{uri}} style={styles.image} />
+        <Image source={{uri, height: overview ? 350 : 250}} />
       </TouchableOpacity>
 
       {overview && (
         <View style={styles.overview}>
-          <Text style={styles.withMarginBottom}>Budget: {item?.budget}</Text>
+          {item?.budget ? (
+            <Text style={styles.withMarginBottom}>Budget: ${item?.budget}</Text>
+          ) : null}
           {item?.vote_avarage && <Text>Rate: {item?.vote_avarage}</Text>}
           <View style={styles.list}>
             <Text style={styles.withMarginRight}>Genres:</Text>
@@ -69,7 +75,13 @@ export default function Item({item, overview = false}: Props) {
               />
             ))}
           </View>
-          <Text>{item?.overview}</Text>
+          <Text style={styles.withMarginBottom}>{item?.overview}</Text>
+
+          <YoutubePlayer
+            height={300}
+            play={false}
+            videoId={data.results[0]?.key}
+          />
         </View>
       )}
     </View>
@@ -101,9 +113,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: '500',
   },
-  image: {
-    height: 200,
-  },
   list: {
     flexDirection: 'row',
     justifyContent: 'flex-start',
@@ -123,5 +132,8 @@ const styles = StyleSheet.create({
   },
   withMarginBottom: {
     marginBottom: 16,
+  },
+  boldText: {
+    fontWeight: '700',
   },
 });

@@ -18,6 +18,10 @@ export default function MainNavigatior() {
 
   const barIconSaved = () =>
     Routes.saved.icon && <FontAwesomeIcon icon={Routes.saved.icon} size={24} />;
+
+  const barIconVideo = () =>
+    Routes.video.icon && <FontAwesomeIcon icon={Routes.video.icon} size={24} />;
+
   return (
     <Tab.Navigator
       initialRouteName={Routes.movies.name}
@@ -34,8 +38,6 @@ export default function MainNavigatior() {
         component={Routes.movies.component}
         options={{
           tabBarLabel: Routes.movies.name,
-          tabBarBadge:
-            Routes.movies.bagde && saved?.length ? saved.length : undefined,
           tabBarIcon: barIconMovies,
         }}
       />
@@ -49,6 +51,16 @@ export default function MainNavigatior() {
           tabBarBadge:
             Routes.saved.bagde && saved?.length ? saved.length : undefined,
           tabBarIcon: barIconSaved,
+        }}
+      />
+      <Tab.Screen
+        key={Routes.video.name}
+        navigationKey={Routes.video.name}
+        name={Routes.video.name}
+        component={Routes.video.component}
+        options={{
+          tabBarLabel: Routes.video.name,
+          tabBarIcon: barIconVideo,
         }}
       />
     </Tab.Navigator>

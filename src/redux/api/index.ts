@@ -13,7 +13,7 @@ export const moviesApi = createApi({
     getMovieById: builder.query<TMovie, number>({
       query: id => `movie/${id}?api_key=${Constants.API_KEY}`,
     }),
-    getMovieVideosById: builder.query<TMovie, number>({
+    getMovieVideosById: builder.query<any, number>({
       query: id => `movie/${id}/videos?api_key=${Constants.API_KEY}`,
     }),
   }),
