@@ -36,12 +36,18 @@ export default function Item({item, overview = false}: Props) {
   };
 
   const handleNavigate = () => {
-    navigation.navigate('Details' as never, {id: item?.id} as never);
+    navigation.navigate(
+      'Main_Details' as never,
+      {
+        screen: 'Details',
+        params: {id: item?.id},
+      } as never,
+    );
   };
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity onPress={handleNavigate}>
+      <TouchableOpacity onPress={handleNavigate} style={styles.tile}>
         <View style={styles.header}>
           <Text style={styles.title}>{item?.name || item?.title}</Text>
           <TouchableOpacity onPress={handlePress}>
@@ -65,8 +71,8 @@ export default function Item({item, overview = false}: Props) {
               </Text>
             ))}
           </View>
-          <View style={styles.list}>
-            <Text style={styles.withMarginRight}>Production:</Text>
+          {/* eslint-disable-next-line react-native/no-inline-styles */}
+          <View style={[styles.list, {marginVertical: 8}]}>
             {item?.production_companies.map(({id, logo_path}) => (
               <Image
                 style={styles.companyLogo}
@@ -94,6 +100,10 @@ const styles = StyleSheet.create({
     paddingBottom: 16,
     marginBottom: 16,
   },
+  tile: {
+    borderRadius: 16,
+    overflow: 'hidden',
+  },
   header: {
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -105,7 +115,7 @@ const styles = StyleSheet.create({
     left: 0,
     width: '100%',
     zIndex: 10,
-    backgroundColor: 'rgba(255, 255, 255,  0.8)',
+    backgroundColor: 'rgba(255, 255, 255,  0.6)',
   },
   title: {
     width: '80%',
@@ -115,12 +125,12 @@ const styles = StyleSheet.create({
   },
   list: {
     flexDirection: 'row',
-    justifyContent: 'flex-start',
     alignItems: 'center',
+    flexWrap: 'wrap',
   },
   companyLogo: {
-    width: 50,
-    height: 50,
+    width: 60,
+    height: 60,
     marginRight: 8,
     resizeMode: 'contain',
   },

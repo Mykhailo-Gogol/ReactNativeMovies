@@ -14,8 +14,9 @@ export default () => {
         options={{headerShown: false, headerTitle: Routes.main.title}}
       />
       <Stack.Screen
-        component={Routes.details.component}
-        name={Routes.details.name}
+        component={Routes.main_details.component}
+        name={Routes.main_details.name}
+        options={{headerTitle: Routes.main_details.title}}
       />
     </Stack.Navigator>
   );

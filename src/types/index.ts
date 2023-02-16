@@ -3,6 +3,7 @@ import {IconProp} from '@fortawesome/fontawesome-svg-core';
 
 export type TRootStackParamList = {
   Main: undefined;
+  Main_Details: {id: number} | undefined;
   Movies: undefined;
   Saved: undefined;
   Details: {id: number} | undefined;

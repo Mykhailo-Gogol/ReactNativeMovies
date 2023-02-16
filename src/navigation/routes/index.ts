@@ -3,10 +3,12 @@ import Saved from '../../screens/Saved';
 import Details from '../../screens/Details';
 import Video from '../../components/Video';
 import MainNavigatior from '../MainNavigator';
+import DetailsNavigatior from '../DetailsNavigator';
 import {TRoute} from '../../types';
 
 enum TKey {
   MAIN = 'main',
+  MAIN_DETAILS = 'main_details',
   MOVIES = 'movies',
   SAVED = 'saved',
   DETAILS = 'details',
@@ -18,6 +20,11 @@ export const Routes: {[key in TKey]: TRoute} = {
     component: MainNavigatior,
     name: 'Main',
     title: 'Movies',
+  },
+  main_details: {
+    component: DetailsNavigatior,
+    name: 'Main_Details',
+    title: 'Movie Details',
   },
   movies: {
     component: Movies,
@@ -33,6 +40,7 @@ export const Routes: {[key in TKey]: TRoute} = {
   details: {
     component: Details,
     name: 'Details',
+    icon: 'film',
   },
   video: {
     component: Video,

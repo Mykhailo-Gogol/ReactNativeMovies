@@ -11,12 +11,13 @@ import {
   faBookmark,
   faArrowUp,
   faVideo,
+  faFilm,
 } from '@fortawesome/free-solid-svg-icons';
 
 import {NavigationContainer} from '@react-navigation/native';
 import RootNavigator from './src/navigation/RootNavigator';
 
-library.add(faHome, faBookmark, faArrowUp, faVideo);
+library.add(faHome, faBookmark, faArrowUp, faVideo, faFilm);
 
 function App(): JSX.Element {
   return (
