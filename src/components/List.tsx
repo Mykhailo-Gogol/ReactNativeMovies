@@ -50,8 +50,10 @@ export default function List({items, handleLoadMore}: Props) {
         style={styles.list}
         data={items}
         ref={flatList}
-        renderItem={({item}) => <Item item={item} />}
-        keyExtractor={item => item.id}
+        renderItem={({item}: {item: TMovie}) => <Item item={item} />}
+        keyExtractor={(item: TMovie, index: number) =>
+          [item.id, index].join('-')
+        }
         showsVerticalScrollIndicator={false}
         ListFooterComponent={footerComponent}
         onEndReached={handleReached}
