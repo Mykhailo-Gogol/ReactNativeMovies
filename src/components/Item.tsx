@@ -97,7 +97,7 @@ export default function Item({item, overview = false}: Props) {
           <Text style={styles.withMarginBottom}>{item?.overview}</Text>
 
           <YoutubePlayer
-            height={300}
+            height={200}
             play={false}
             videoId={data.results[0]?.key}
           />
