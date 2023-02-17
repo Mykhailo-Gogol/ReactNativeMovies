@@ -51,7 +51,7 @@ export default function List({items, handleLoadMore}: Props) {
         data={items}
         ref={flatList}
         renderItem={({item}) => <Item item={item} />}
-        keyExtractor={(item, index) => [item.id, index].join('-')}
+        keyExtractor={item => item.id}
         showsVerticalScrollIndicator={false}
         ListFooterComponent={footerComponent}
         onEndReached={handleReached}

@@ -60,7 +60,17 @@ export default function Item({item, overview = false}: Props) {
       {overview && (
         <View style={styles.overview}>
           {item?.budget ? (
-            <Text style={styles.withMarginBottom}>Budget: ${item?.budget}</Text>
+            <View style={styles.list}>
+              <Text style={styles.withMarginRight}>Budget:</Text>
+              <Text>
+                {Intl.NumberFormat('en-US', {
+                  notation: 'compact',
+                  compactDisplay: 'short',
+                  style: 'currency',
+                  currency: 'USD',
+                }).format(Number(item?.budget))}
+              </Text>
+            </View>
           ) : null}
           {item?.vote_avarage && <Text>Rate: {item?.vote_avarage}</Text>}
           <View style={styles.list}>
@@ -73,13 +83,16 @@ export default function Item({item, overview = false}: Props) {
           </View>
           {/* eslint-disable-next-line react-native/no-inline-styles */}
           <View style={[styles.list, {marginVertical: 8}]}>
-            {item?.production_companies.map(({id, logo_path}) => (
-              <Image
-                style={styles.companyLogo}
-                key={id}
-                source={{uri: getLogo(logo_path)}}
-              />
-            ))}
+            {item?.production_companies.map(
+              ({id, logo_path}) =>
+                logo_path && (
+                  <Image
+                    style={styles.companyLogo}
+                    key={id}
+                    source={{uri: getLogo(logo_path)}}
+                  />
+                ),
+            )}
           </View>
           <Text style={styles.withMarginBottom}>{item?.overview}</Text>
 

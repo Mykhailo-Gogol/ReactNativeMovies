@@ -18,12 +18,13 @@ export const store = configureStore({
   reducer: persistedReducer,
   middleware: getDefaultMiddleware =>
     __DEV__
-      ? getDefaultMiddleware({serializableCheck: false})
+      ? getDefaultMiddleware({serializableCheck: false, immutableCheck: false})
           .concat(moviesApi.middleware)
           .concat(flipper.default())
-      : getDefaultMiddleware({serializableCheck: false}).concat(
-          moviesApi.middleware,
-        ),
+      : getDefaultMiddleware({
+          serializableCheck: false,
+          immutableCheck: false,
+        }).concat(moviesApi.middleware),
 });
 
 export type RootState = ReturnType<typeof store.getState>;
