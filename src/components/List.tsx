@@ -59,12 +59,12 @@ export default function List({items, handleLoadMore}: Props) {
         onEndReached={handleReached}
         onEndReachedThreshold={0}
         onScroll={handleScroll}
-        scrollEventThrottle={25}
+        scrollEventThrottle={16}
       />
       {showScrollTop && (
         <Pressable
           style={scrollTopButtonStyle}
-          onPressIn={() =>
+          onPress={() =>
             flatList.current?.scrollToIndex({index: 0, animated: true})
           }>
           <FontAwesomeIcon icon="arrow-up" />
