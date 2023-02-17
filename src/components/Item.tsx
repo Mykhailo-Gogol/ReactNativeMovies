@@ -49,7 +49,11 @@ export default function Item({item, overview = false}: Props) {
     <View style={styles.container}>
       <TouchableOpacity onPress={handleNavigate} style={styles.tile}>
         <View style={styles.header}>
-          <Text style={styles.title}>{item?.name || item?.title}</Text>
+          <Text style={styles.title}>
+            {`${item?.name || item?.title} (${new Date(
+              item!.release_date,
+            ).getFullYear()})`}
+          </Text>
           <TouchableOpacity onPress={handlePress}>
             <FontAwesomeIcon icon={isIn ? faBookmark : farBookmark} size={24} />
           </TouchableOpacity>

@@ -28,4 +28,5 @@ export interface TMovie {
   budget: string;
   vote_avarage: number;
   production_companies: {id: number; name: string; logo_path: string | null}[];
+  release_date: string;
 }
