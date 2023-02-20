@@ -43,6 +43,7 @@ export default function Video() {
   const restart = () => {
     player.current?.seek(0, 0);
     setPaused(false);
+    setEnd(false);
   };
 
   const handlePlayPause = () => (end ? restart() : setPaused(!paused));
