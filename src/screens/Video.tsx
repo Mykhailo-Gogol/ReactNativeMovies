@@ -1,4 +1,4 @@
-import React, {useRef, useState} from 'react';
+import React, {useCallback, useRef, useState} from 'react';
 import VideoPlayer, {OnProgressData} from 'react-native-video';
 import {
   StyleSheet,
@@ -13,6 +13,7 @@ import {
 } from 'react-native-orientation-locker';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {faPlay, faPause, faExpand} from '@fortawesome/free-solid-svg-icons';
+import throttle from 'lodash.throttle';
 
 export default function Video() {
   const player = useRef<VideoPlayer | null>(null);
@@ -49,11 +50,19 @@ export default function Video() {
   const handlePlayPause = () => (end ? restart() : setPaused(!paused));
   const handleFullScreen = () => player.current?.presentFullscreenPlayer();
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const throttledFunc = useCallback(
+    throttle(p => {
+      setProgress(p);
+    }, 1000),
+    [],
+  );
+
   return (
     <ScrollView style={styles.container}>
       <View>
         <VideoPlayer
-          onProgress={p => setProgress(p)}
+          onProgress={throttledFunc}
           onFullscreenPlayerDidDismiss={() => setPaused(true)}
           onFullscreenPlayerDidPresent={() => setPaused(false)}
           onEnd={() => {
