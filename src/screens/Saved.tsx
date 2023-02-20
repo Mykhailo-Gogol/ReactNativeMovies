@@ -11,7 +11,7 @@ export default function Saved() {
   return (
     <View style={styles.container}>
       {saved?.length ? (
-        <List items={saved} />
+        <List items={[...saved].reverse()} />
       ) : (
         <Text style={styles.text}>Saved List Is Empty</Text>
       )}
