@@ -65,7 +65,7 @@ export default function Item({item, overview = false}: Props) {
         <View style={styles.overview}>
           {item?.budget ? (
             <View style={styles.list}>
-              <Text style={styles.withMarginRight}>Budget:</Text>
+              <Text className="mr-1">Budget:</Text>
               <Text>
                 {Intl.NumberFormat('en-US', {
                   notation: 'compact',
@@ -78,9 +78,9 @@ export default function Item({item, overview = false}: Props) {
           ) : null}
           {item?.vote_avarage && <Text>Rate: {item?.vote_avarage}</Text>}
           <View style={styles.list}>
-            <Text style={styles.withMarginRight}>Genres:</Text>
+            <Text className="mr-1">Genres:</Text>
             {item?.genres.map(({id, name}) => (
-              <Text style={styles.withMarginRight} key={id}>
+              <Text className="mr-1" key={id}>
                 {name}
               </Text>
             ))}
@@ -91,6 +91,7 @@ export default function Item({item, overview = false}: Props) {
               ({id, logo_path}) =>
                 logo_path && (
                   <Image
+                    resizeMode="contain"
                     style={styles.companyLogo}
                     key={id}
                     source={{uri: getLogo(logo_path)}}
@@ -98,7 +99,7 @@ export default function Item({item, overview = false}: Props) {
                 ),
             )}
           </View>
-          <Text style={styles.withMarginBottom}>{item?.overview}</Text>
+          <Text className="mb-4">{item?.overview}</Text>
 
           <YoutubePlayer
             height={220}
