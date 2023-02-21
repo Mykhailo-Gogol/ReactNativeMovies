@@ -1,6 +1,5 @@
 import React, {useRef, useState} from 'react';
 import {
-  StyleSheet,
   FlatList,
   ActivityIndicator,
   View,
@@ -22,7 +21,7 @@ export default function List({items, handleLoadMore}: Props) {
 
   const footerComponent = () =>
     handleLoadMore ? (
-      <ActivityIndicator size="small" style={styles.loader} />
+      <ActivityIndicator size="small" className={nativeWind.loader} />
     ) : null;
 
   const handleReached = () => {
@@ -39,15 +38,10 @@ export default function List({items, handleLoadMore}: Props) {
     }
   };
 
-  const scrollTopButtonStyle = ({pressed}: {pressed: boolean}) => ({
-    ...styles.scrollTop,
-    backgroundColor: pressed ? '#3cf' : '#ddd',
-  });
-
   return (
-    <View style={styles.container}>
+    <View className={nativeWind.container}>
       <FlatList
-        style={styles.list}
+        className={nativeWind.list}
         data={items}
         ref={flatList}
         renderItem={({item}: {item: TMovie}) => <Item item={item} />}
@@ -63,37 +57,21 @@ export default function List({items, handleLoadMore}: Props) {
       />
       {showScrollTop && (
         <Pressable
-          style={scrollTopButtonStyle}
+          className={nativeWind.backButton}
           onPress={() =>
             flatList.current?.scrollToIndex({index: 0, animated: true})
           }>
-          <FontAwesomeIcon icon="arrow-up" />
+          <FontAwesomeIcon icon="arrow-up" color="white" />
         </Pressable>
       )}
     </View>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    position: 'relative',
-    zIndex: 5,
-  },
-  list: {
-    position: 'relative',
-  },
-  scrollTop: {
-    position: 'absolute',
-    width: 50,
-    height: 50,
-    right: 10,
-    bottom: 10,
-    zIndex: 10,
-    borderRadius: 999,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  loader: {
-    marginBottom: 16,
-  },
-});
+const nativeWind = {
+  container: 'relative',
+  list: 'relative',
+  loader: 'mb-4',
+  backButton:
+    'absolute w-12 h-12 items-center justify-center rounded-full bottom-2 right-2 bg-blue-400 active:bg-red-400',
+};
