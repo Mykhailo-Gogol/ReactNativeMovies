@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, View, TouchableOpacity, Text, Image} from 'react-native';
+import {View, TouchableOpacity, Text, Image} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {useSelector} from 'react-redux';
 import {useDispatch} from 'react-redux';
@@ -46,10 +46,13 @@ export default function Item({item, overview = false}: Props) {
   };
 
   return (
-    <View style={styles.container}>
-      <TouchableOpacity onPress={handleNavigate} style={styles.tile}>
-        <View style={styles.header}>
-          <Text style={styles.title}>
+    <View className={nativeWind.container}>
+      <TouchableOpacity onPress={handleNavigate} className={nativeWind.tile}>
+        <View
+          className={nativeWind.header}
+          // eslint-disable-next-line react-native/no-inline-styles
+          style={{backgroundColor: 'rgba(255,255,255,0.7)'}}>
+          <Text className={nativeWind.title}>
             {`${item?.name || item?.title} (${new Date(
               item!.release_date,
             ).getFullYear()})`}
@@ -62,10 +65,10 @@ export default function Item({item, overview = false}: Props) {
       </TouchableOpacity>
 
       {overview && (
-        <View style={styles.overview}>
+        <View className={nativeWind.overview}>
           {item?.budget ? (
-            <View style={styles.list}>
-              <Text style={styles.withMarginRight}>Budget:</Text>
+            <View className={nativeWind.list}>
+              <Text className="mr-1">Budget:</Text>
               <Text>
                 {Intl.NumberFormat('en-US', {
                   notation: 'compact',
@@ -77,28 +80,28 @@ export default function Item({item, overview = false}: Props) {
             </View>
           ) : null}
           {item?.vote_avarage && <Text>Rate: {item?.vote_avarage}</Text>}
-          <View style={styles.list}>
-            <Text style={styles.withMarginRight}>Genres:</Text>
+          <View className={nativeWind.list}>
+            <Text className="mr-1">Genres:</Text>
             {item?.genres.map(({id, name}) => (
-              <Text style={styles.withMarginRight} key={id}>
+              <Text className="mr-1" key={id}>
                 {name}
               </Text>
             ))}
           </View>
-          {/* eslint-disable-next-line react-native/no-inline-styles */}
-          <View style={[styles.list, {marginVertical: 8}]}>
+          <View className={(nativeWind.list, 'my-2')}>
             {item?.production_companies.map(
               ({id, logo_path}) =>
                 logo_path && (
                   <Image
-                    style={styles.companyLogo}
+                    resizeMode="contain"
+                    className={nativeWind.companyLogo}
                     key={id}
                     source={{uri: getLogo(logo_path)}}
                   />
                 ),
             )}
           </View>
-          <Text style={styles.withMarginBottom}>{item?.overview}</Text>
+          <Text className="mb-4">{item?.overview}</Text>
 
           <YoutubePlayer
             height={220}
@@ -111,56 +114,13 @@ export default function Item({item, overview = false}: Props) {
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    position: 'relative',
-    paddingBottom: 16,
-    marginBottom: 16,
-  },
-  tile: {
-    borderRadius: 16,
-    overflow: 'hidden',
-  },
-  header: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    paddingVertical: 16,
-    paddingHorizontal: 8,
-    position: 'absolute',
-    bottom: 0,
-    left: 0,
-    width: '100%',
-    zIndex: 10,
-    backgroundColor: 'rgba(255, 255, 255,  0.6)',
-  },
-  title: {
-    width: '80%',
-    marginRight: 16,
-    fontSize: 16,
-    fontWeight: '500',
-  },
-  list: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    flexWrap: 'wrap',
-  },
-  companyLogo: {
-    width: 60,
-    height: 60,
-    marginRight: 8,
-    resizeMode: 'contain',
-  },
-  overview: {
-    marginTop: 16,
-  },
-  withMarginRight: {
-    marginRight: 4,
-  },
-  withMarginBottom: {
-    marginBottom: 16,
-  },
-  boldText: {
-    fontWeight: '700',
-  },
-});
+const nativeWind = {
+  container: 'relative pb-4 mb-4',
+  tile: 'overflow-hidden rounded-2xl',
+  header:
+    'absolute bottom-0 left-0 w-full z-10 flex-row justify-between items-center py-4 px-2',
+  title: 'w-[80%] mr-4 text-base font-medium',
+  list: 'flex-row items-center flex-wrap',
+  companyLogo: 'w-14 h-14 mr-2',
+  overview: 'mt-4',
+};
